@@ -21,6 +21,7 @@ int main(void)
     while (1)
     {
         printf("System mainloop is : %ld\r\n", main_loop);
+        HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
         main_loop++;
         HAL_Delay_US(1000000);
 
