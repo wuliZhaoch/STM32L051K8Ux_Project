@@ -18,4 +18,6 @@
 
 #include "rtc.h"
 
+#include "i2c.h"
+
 #endif /* INCLUDES_H_ */

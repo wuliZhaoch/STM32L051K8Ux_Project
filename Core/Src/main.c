@@ -61,24 +61,25 @@ int main(void)
 
     MX_GPIO_Init();
     MX_USART1_UART_Init();
+    MX_I2C1_Init();
     MX_RTC_Init();
 
     HAL_Delay(5000);
     /* Enter into Low Power Config */
-    Enter_into_lowpower_config();
+//    Enter_into_lowpower_config();
 
     while (1)
     {
         LED_Blink(10, 200);
 
-        char *str = "Enter into stop mode\r\n";
-        HAL_UART_Transmit(&huart1, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
+//        char *str = "Enter into stop mode\r\n";
+//        HAL_UART_Transmit(&huart1, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
 
         /* Enter into Stop Mode */
-        Enter_into_Stopmode(STOPMODE_WAKEUP_TIME);
+//        Enter_into_Stopmode(STOPMODE_WAKEUP_TIME);
 
-        char *str1 = "Wakeup From stop mode \r\n";
-        HAL_UART_Transmit(&huart1, (uint8_t *)str1, strlen(str1), HAL_MAX_DELAY);
+//        char *str1 = "Wakeup From stop mode \r\n";
+//        HAL_UART_Transmit(&huart1, (uint8_t *)str1, strlen(str1), HAL_MAX_DELAY);
 
 
 //        printf("System mainloop is : %ld\r\n", main_loop);
