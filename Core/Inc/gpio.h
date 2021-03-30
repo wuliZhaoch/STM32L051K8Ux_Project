@@ -36,7 +36,7 @@
 /* USER CODE END Private defines */
 
 void MX_GPIO_Init(void);
-
+void Enter_into_lowPower_GpioConfig(void);
 /* USER CODE BEGIN Prototypes */
 
 /* USER CODE END Prototypes */
