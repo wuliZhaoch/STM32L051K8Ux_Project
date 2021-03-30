@@ -11,10 +11,12 @@ void LED_Blink(uint16_t Blink_counter, uint16_t period)
     for (uint16_t i = 0; i < Blink_counter; i++)
     {
         HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_15);
+        HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_8);
         HAL_Delay(period);
     }
 
     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_15, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(GPIOB, GPIO_PIN_8, GPIO_PIN_SET);
 }
 
 void Enter_into_lowpower_config(void)
@@ -33,6 +35,8 @@ void Enter_into_Stopmode(uint32_t wakeup_sec)
     Enter_into_lowPower_GpioConfig();
     HAL_Delay(10);
 
+    /* Debug Mode Use */
+    HAL_DBGMCU_DBG_DisableLowPowerConfig(DBGMCU_STOP || DBGMCU_SLEEP || DBGMCU_STANDBY);
     HAL_RTCEx_DeactivateWakeUpTimer(&hrtc);
     HAL_RTCEx_SetWakeUpTimer_IT(&hrtc, wakeup_sec, RTC_WAKEUPCLOCK_CK_SPRE_16BITS);
     HAL_PWR_EnterSTOPMode(PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI);
