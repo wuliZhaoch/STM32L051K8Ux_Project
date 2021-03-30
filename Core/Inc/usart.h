@@ -27,6 +27,7 @@
 //#include "main.h"
 #include "system.h"
 #include "stdio.h"
+#include "string.h"
 /* USER CODE BEGIN Includes */
 
 /* USER CODE END Includes */
