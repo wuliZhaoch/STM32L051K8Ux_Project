@@ -20,4 +20,6 @@
 
 #include "i2c.h"
 
+#include "sd3078.h"
+
 #endif /* INCLUDES_H_ */
