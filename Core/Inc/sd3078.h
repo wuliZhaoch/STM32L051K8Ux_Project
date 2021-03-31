@@ -11,6 +11,28 @@
 #include "system.h"
 #include "i2c.h"
 
+#define DEVICEID_LEN    8
+
+typedef struct
+{
+    uint8_t sd3078_secend;
+    uint8_t sd3078_minute;
+    uint8_t sd3078_hour;
+    uint8_t sd3078_week;
+    uint8_t sd3078_day;
+    uint8_t sd3078_month;
+    uint8_t sd3078_year;
+} SD3078_TimeTypeDef;
+
+
+typedef struct
+{
+    uint8_t DeviceID_len;
+    uint8_t DeviceID_Buffer[DEVICEID_LEN];
+
+} SD3078_DeviceIDypeDef;
+
+
 #define SD3078_TIMEOUT      1000
 
 #define IIC_HANDLE              hi2c1

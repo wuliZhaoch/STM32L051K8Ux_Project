@@ -3,6 +3,7 @@
 
 #define STOPMODE_WAKEUP_TIME    10
 
+SD3078_DeviceIDypeDef DeviceID;
 
 uint32_t main_loop = 0;
 
@@ -65,12 +66,21 @@ int main(void)
     MX_RTC_Init();
 
     HAL_Delay(5000);
+    /* sd3078 Device ID */
+    if (sd3078_MultiByteRead(SD3078_DEVICE_ID1, DeviceID.DeviceID_Buffer, DEVICEID_LEN, SD3078_TIMEOUT) == HAL_OK)
+    {
+        HAL_UART_Transmit(&huart1, DeviceID.DeviceID_Buffer, DEVICEID_LEN, HAL_MAX_DELAY);
+    } else {
+        Error_Handler();
+    }
+
     /* Enter into Low Power Config */
 //    Enter_into_lowpower_config();
 
     while (1)
     {
         LED_Blink(10, 200);
+        HAL_Delay(1000);
 
 //        char *str = "Enter into stop mode\r\n";
 //        HAL_UART_Transmit(&huart1, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
