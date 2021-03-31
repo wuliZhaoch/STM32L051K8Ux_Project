@@ -4,6 +4,10 @@
 #define STOPMODE_WAKEUP_TIME    10
 
 SD3078_DeviceIDypeDef DeviceID;
+uint8_t sd3078_DeviceTemp = 0;
+
+uint8_t sd3078_VBATBUFF[2] = {0};
+uint16_t sd3078_VBAT = 0;
 
 uint32_t main_loop = 0;
 
@@ -66,13 +70,26 @@ int main(void)
     MX_RTC_Init();
 
     HAL_Delay(5000);
+    /* RTC Time set */
+    sd3078_RTC_WriteDate(SD3078_RTC_SECOND, Time_RTC_Init);
     /* sd3078 Device ID */
-    if (sd3078_MultiByteRead(SD3078_DEVICE_ID1, DeviceID.DeviceID_Buffer, DEVICEID_LEN, SD3078_TIMEOUT) == HAL_OK)
+    if (sd3078_ReadDeviceID(SD3078_DEVICE_ID1, DeviceID.DeviceID_Buffer) == HAL_OK)
     {
         HAL_UART_Transmit(&huart1, DeviceID.DeviceID_Buffer, DEVICEID_LEN, HAL_MAX_DELAY);
     } else {
         Error_Handler();
     }
+    HAL_Delay(200);
+    /* sd3078 Device Temperature */
+    if (sd3078_ReadDeviceTemperature(SD3078_DEVICE_ID1, &sd3078_DeviceTemp) == HAL_OK)
+    {
+        HAL_UART_Transmit(&huart1, &sd3078_DeviceTemp, 1, HAL_MAX_DELAY);
+    } else {
+        Error_Handler();
+    }
+
+//    HAL_Delay(100);
+//    sd3078_VBAT = sd3078_ReadDeviceVBAT(SD3078_EXPANSION_CTR5, sd3078_VBATBUFF);
 
     /* Enter into Low Power Config */
 //    Enter_into_lowpower_config();
@@ -81,6 +98,8 @@ int main(void)
     {
         LED_Blink(10, 200);
         HAL_Delay(1000);
+        sd3078_VBAT = sd3078_ReadDeviceVBAT(SD3078_EXPANSION_CTR5, sd3078_VBATBUFF);
+        printf("VBAT is : %d.%d%d V\r\n", sd3078_VBAT/100, sd3078_VBAT%100/10, sd3078_VBAT%10);
 
 //        char *str = "Enter into stop mode\r\n";
 //        HAL_UART_Transmit(&huart1, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);

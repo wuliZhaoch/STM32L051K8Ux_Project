@@ -11,7 +11,9 @@
 #include "system.h"
 #include "i2c.h"
 
-#define DEVICEID_LEN    8
+#define DEVICEID_LEN        8
+#define DEVICE_VBAT_LEN     2
+#define TIME_RTC_LEN        7
 
 typedef struct
 {
@@ -31,6 +33,15 @@ typedef struct
     uint8_t DeviceID_Buffer[DEVICEID_LEN];
 
 } SD3078_DeviceIDypeDef;
+
+
+extern uint8_t Time_RTC_Init[TIME_RTC_LEN];
+
+extern uint8_t WRTC1_CTR2_SET;
+extern uint8_t WRTC2_WRTC3_CTR1_SET;
+
+extern uint8_t WRTC1_CTR2_RESET;
+extern uint8_t WRTC2_WRTC3_CTR1_RESET;
 
 
 #define SD3078_TIMEOUT      1000
@@ -124,8 +135,16 @@ typedef struct
 #define SD3078_DEVICE_ID8           0X79    /* The internal serial number 2 */
 
 
-uint8_t sd3078_ByteWrite(uint16_t Addr, uint8_t* data, uint32_t Time_out);
-uint8_t sd3078_ByteRead(uint16_t Addr, uint8_t* read_buff, uint32_t Time_out);
-uint8_t sd3078_MultiByteRead(uint16_t Addr, uint8_t* read_buff, uint16_t size, uint32_t Time_out);
+uint8_t sd3078_ByteWrite(uint16_t Addr, uint8_t* data, uint32_t Time_out);      // SD3078 Write Byte
+uint8_t sd3078_MultiByteWrite(uint16_t Addr, uint8_t* data, uint16_t size, uint32_t Time_out);
+uint8_t sd3078_ByteRead(uint16_t Addr, uint8_t* read_buff, uint32_t Time_out);      // SD3078 Read Byte
+uint8_t sd3078_MultiByteRead(uint16_t Addr, uint8_t* read_buff, uint16_t size, uint32_t Time_out);      // SD3078 Read Multi Byte
+
+uint8_t sd3078_ReadDeviceID(uint16_t Addr, uint8_t *read_buffer);       // Read sd3078 Device ID
+uint8_t sd3078_ReadDeviceTemperature(uint16_t Addr, uint8_t *read_buffer);     // Read sd3078 Device Temperature
+uint16_t sd3078_ReadDeviceVBAT(uint16_t Addr, uint8_t *read_buffer);        // Read sd3078 VBAT
+void sd3078_WriteEnable(uint16_t Addr_CTR2, uint16_t Addr_CTR1);
+void sd3078_WriteDisable(uint16_t Addr_CTR1, uint16_t Addr_CTR2);
+void sd3078_RTC_WriteDate(uint16_t Addr, uint8_t *write_buffer);
 
 #endif
