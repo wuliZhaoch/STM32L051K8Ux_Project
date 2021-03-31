@@ -162,8 +162,16 @@ void sd3078_RTC_WriteDate(uint16_t Addr, uint8_t *write_buffer)
 }
 
 
-
-
+/**
+  * @brief  Function Read RTC Date
+  * @param  Addr: Start Write the Starting Address
+  * @param  data: Data Content Read
+  * @retval HAL status
+  */
+void sd3078_RTC_ReadDate(uint16_t Addr, uint8_t *Read_buffer)
+{
+    sd3078_MultiByteRead(Addr, Read_buffer, TIME_RTC_LEN, SD3078_TIMEOUT);
+}
 
 
 

@@ -24,6 +24,7 @@ typedef struct
     uint8_t sd3078_day;
     uint8_t sd3078_month;
     uint8_t sd3078_year;
+    uint8_t sd3078_readtime_buf[TIME_RTC_LEN];
 } SD3078_TimeTypeDef;
 
 
@@ -146,5 +147,7 @@ uint16_t sd3078_ReadDeviceVBAT(uint16_t Addr, uint8_t *read_buffer);        // R
 void sd3078_WriteEnable(uint16_t Addr_CTR2, uint16_t Addr_CTR1);
 void sd3078_WriteDisable(uint16_t Addr_CTR1, uint16_t Addr_CTR2);
 void sd3078_RTC_WriteDate(uint16_t Addr, uint8_t *write_buffer);
+void sd3078_RTC_ReadDate(uint16_t Addr, uint8_t *Read_buffer);
+
 
 #endif
