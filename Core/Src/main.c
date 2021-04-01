@@ -115,27 +115,27 @@ int main(void)
         Error_Handler();
     }
 
-//    HAL_Delay(100);
-//    sd3078_VBAT = sd3078_ReadDeviceVBAT(SD3078_EXPANSION_CTR5, sd3078_VBATBUFF);
+    HAL_Delay(100);
+    sd3078_VBAT = sd3078_ReadDeviceVBAT(SD3078_EXPANSION_CTR5, sd3078_VBATBUFF);
 
     /* Enter into Low Power Config */
-//    Enter_into_lowpower_config();
+    Enter_into_lowpower_config();
 
     while (1)
     {
         LED_Blink(10, 200);
-        HAL_Delay(1000);
-//        sd3078_VBAT = sd3078_ReadDeviceVBAT(SD3078_EXPANSION_CTR5, sd3078_VBATBUFF);
-//        printf("VBAT is : %d.%d%d V\r\n", sd3078_VBAT/100, sd3078_VBAT%100/10, sd3078_VBAT%10);
 
-//        char *str = "Enter into stop mode\r\n";
-//        HAL_UART_Transmit(&huart1, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
+        sd3078_VBAT = sd3078_ReadDeviceVBAT(SD3078_EXPANSION_CTR5, sd3078_VBATBUFF);
+        printf("VBAT is : %d.%d%d V\r\n", sd3078_VBAT/100, sd3078_VBAT%100/10, sd3078_VBAT%10);
+
+        char *str = "Enter into stop mode\r\n";
+        HAL_UART_Transmit(&huart1, (uint8_t *)str, strlen(str), HAL_MAX_DELAY);
 
         /* Enter into Stop Mode */
-//        Enter_into_Stopmode(STOPMODE_WAKEUP_TIME);
+        Enter_into_Stopmode(STOPMODE_WAKEUP_TIME);
 
-//        char *str1 = "Wakeup From stop mode \r\n";
-//        HAL_UART_Transmit(&huart1, (uint8_t *)str1, strlen(str1), HAL_MAX_DELAY);
+        char *str1 = "Wakeup From stop mode \r\n";
+        HAL_UART_Transmit(&huart1, (uint8_t *)str1, strlen(str1), HAL_MAX_DELAY);
 
 
 //        printf("System mainloop is : %ld\r\n", main_loop);
