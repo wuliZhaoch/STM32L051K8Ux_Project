@@ -82,10 +82,9 @@ int main(void)
     printf("SD3078 RTC Time is: %d/%d/%d %d  %d:%d:%d\r\n",
             sd3078_readtime_buf.sd3078_readtime_buf[6],
             sd3078_readtime_buf.sd3078_readtime_buf[5],
-            sd3078_readtime_buf.sd3078_readtime_buf[5],
             sd3078_readtime_buf.sd3078_readtime_buf[4],
             sd3078_readtime_buf.sd3078_readtime_buf[3],
-            sd3078_readtime_buf.sd3078_readtime_buf[2],
+            sd3078_readtime_buf.sd3078_readtime_buf[2] & 0x7F,
             sd3078_readtime_buf.sd3078_readtime_buf[1],
             sd3078_readtime_buf.sd3078_readtime_buf[0]);
 

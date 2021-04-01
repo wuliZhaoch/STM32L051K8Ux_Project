@@ -15,7 +15,13 @@ uint8_t WRTC2_WRTC3_CTR1_SET = 0X84;
 uint8_t WRTC1_CTR2_RESET = 0X00;
 uint8_t WRTC2_WRTC3_CTR1_RESET = 0X00;
 
-uint8_t Time_RTC_Init[TIME_RTC_LEN] = {0x00, 0x00, 0x0B, 0x03, 0x1F, 0x03, 0X15};
+/* 0x8B bit7 1:24/Hour  0:12/Hour
+    // Read the hour data, to screen the highest bit of the hour, otherwise the display will be a problem
+    // 读取小时数据时, 要屏蔽小时的最高位, 否则显示会出问题
+    // 写时间数据时,不可以单独对7个时间数据中的某一位写操作,要一次性写入7个实时时钟数据, 否则会引起时间数据错误进位
+*/
+/* Second-Minute-Hour-Week-Day-Month-Year  */
+uint8_t Time_RTC_Init[TIME_RTC_LEN] = {0x00, 0x00, 0x89, 0x03, 0x31, 0x03, 0x21};
 
 
 /**
