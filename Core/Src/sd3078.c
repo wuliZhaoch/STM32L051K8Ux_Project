@@ -179,8 +179,3 @@ void sd3078_RTC_ReadDate(uint16_t Addr, uint8_t *Read_buffer)
     sd3078_MultiByteRead(Addr, Read_buffer, TIME_RTC_LEN, SD3078_TIMEOUT);
 }
 
-
-
-
-
-

@@ -15,6 +15,14 @@
 #define DEVICE_VBAT_LEN     2
 #define TIME_RTC_LEN        7
 
+typedef enum {
+    Source_4096Hz,
+    Source_1024Hz,
+    Source_1S,
+    Source_1Min
+} SD3078_ClkSourceTypeDef;
+
+
 typedef struct
 {
     uint8_t sd3078_secend;
