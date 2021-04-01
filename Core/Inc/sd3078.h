@@ -22,6 +22,23 @@ typedef enum {
     Source_1Min
 } SD3078_ClkSourceTypeDef;
 
+typedef enum {
+    sd3078_fre4096HZ = 0X02,
+    sd3078_fre1024HZ,
+    sd3078_fre64HZ,
+    sd3078_fre32HZ,
+    sd3078_fre16HZ,
+    sd3078_fre8HZ,
+    sd3078_fre4HZ,
+    sd3078_fre2HZ,
+    sd3078_fre1HZ,
+    sd3078_fre1_2HZ,
+    sd3078_fre1_4HZ,
+    sd3078_fre1_8HZ,
+    sd3078_fre1_16HZ,
+    sd3078_fre1S
+} SD3078_FreTypeDef;
+
 typedef struct {
     SD3078_ClkSourceTypeDef ClkSource;
     uint8_t SD3078_IM;
