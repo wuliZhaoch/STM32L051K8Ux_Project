@@ -195,7 +195,7 @@ void sd3078_CountDown_interrupt(SD3078_CountDownTypeDef *countdowninit, uint8_t 
 }
 
 /**
-  * @brief  Function CountDown Interrupt
+  * @brief  Function Freoutput Interrupt
   * @param  countdowninit:  CountDown init
   * @param  writeBuffer: Data Content Write
   */
