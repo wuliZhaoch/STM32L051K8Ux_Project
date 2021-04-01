@@ -179,5 +179,6 @@ void sd3078_WriteDisable(uint16_t Addr_CTR1, uint16_t Addr_CTR2);
 void sd3078_RTC_WriteDate(uint16_t Addr, uint8_t *write_buffer);
 void sd3078_RTC_ReadDate(uint16_t Addr, uint8_t *Read_buffer);
 void sd3078_CountDown_interrupt(SD3078_CountDownTypeDef *countdowninit, uint8_t *writeBuffer);
+void sd3078_FreOutput_Interrupt(SD3078_FreTypeDef freoutput);
 
 #endif

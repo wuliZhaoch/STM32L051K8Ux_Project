@@ -117,7 +117,6 @@ uint16_t sd3078_ReadDeviceVBAT(uint16_t Addr, uint8_t *read_buffer)
   * @brief  Function Write Enable
   * @param  Addr: Start Write the Starting Address
   * @param  data: Data Content Write
-  * @retval HAL status
   */
 void sd3078_WriteEnable(uint16_t Addr_CTR2, uint16_t Addr_CTR1)
 {
@@ -136,7 +135,6 @@ void sd3078_WriteEnable(uint16_t Addr_CTR2, uint16_t Addr_CTR1)
   * @brief  Function Write Disable
   * @param  Addr: Start Write the Starting Address
   * @param  data: Data Content Write
-  * @retval HAL status
   */
 void sd3078_WriteDisable(uint16_t Addr_CTR1, uint16_t Addr_CTR2)
 {
@@ -155,7 +153,6 @@ void sd3078_WriteDisable(uint16_t Addr_CTR1, uint16_t Addr_CTR2)
   * @brief  Function Write RTC Date
   * @param  Addr: Start Write the Starting Address
   * @param  write_buffer: Data Content Write
-  * @retval HAL status
   */
 void sd3078_RTC_WriteDate(uint16_t Addr, uint8_t *write_buffer)
 {
@@ -172,7 +169,6 @@ void sd3078_RTC_WriteDate(uint16_t Addr, uint8_t *write_buffer)
   * @brief  Function Read RTC Date
   * @param  Addr: Start Write the Starting Address
   * @param  Read_buffer: Data Content Read
-  * @retval HAL status
   */
 void sd3078_RTC_ReadDate(uint16_t Addr, uint8_t *Read_buffer)
 {
@@ -180,10 +176,9 @@ void sd3078_RTC_ReadDate(uint16_t Addr, uint8_t *Read_buffer)
 }
 
 /**
-  * @brief  Function Read RTC Date
+  * @brief  Function CountDown Interrupt
   * @param  countdowninit:  CountDown init
   * @param  writeBuffer: Data Content Write
-  * @retval HAL status
   */
 void sd3078_CountDown_interrupt(SD3078_CountDownTypeDef *countdowninit, uint8_t *writeBuffer)
 {
@@ -197,4 +192,24 @@ void sd3078_CountDown_interrupt(SD3078_CountDownTypeDef *countdowninit, uint8_t 
 
     sd3078_ByteWrite(SD3078_CONTROL_CTR2, &FLAG_TEP, SD3078_TIMEOUT);
     sd3078_MultiByteWrite(SD3078_CONTROL_CTR2, writeBuffer, 6, SD3078_TIMEOUT);
+}
+
+/**
+  * @brief  Function CountDown Interrupt
+  * @param  countdowninit:  CountDown init
+  * @param  writeBuffer: Data Content Write
+  */
+void sd3078_FreOutput_Interrupt(SD3078_FreTypeDef freoutput)
+{
+    uint8_t fre_buffer[2] = {0};
+    /*  0XA1 CTR2(0X10)
+     *  WRTC1  IM  INTS1  INTS0  FOBAT  INTDE  INTAE  INTFE
+     *    1     0    1      0      0      0      0      1  (0XA1)
+     *  ARST  F32K  TDS1  TDS0    FS3    FS2    FS1    FS0
+     *    0     0    0      0      1      1      1      1  (0X0F)
+     * (FS3 FS2 FS1 FS0) These four bits choose the frequency of the output
+     * */
+    fre_buffer[0] = 0xA1;
+    fre_buffer[1] = freoutput;
+    sd3078_MultiByteWrite(SD3078_CONTROL_CTR2, fre_buffer, 2, SD3078_TIMEOUT);
 }
