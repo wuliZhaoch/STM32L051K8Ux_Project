@@ -16,12 +16,17 @@
 #define TIME_RTC_LEN        7
 
 typedef enum {
-    Source_4096Hz,
+    Source_4096Hz = 0,
     Source_1024Hz,
     Source_1S,
     Source_1Min
 } SD3078_ClkSourceTypeDef;
 
+typedef struct {
+    SD3078_ClkSourceTypeDef ClkSource;
+    uint8_t SD3078_IM;
+    uint32_t Counter_val;
+} SD3078_CountDownTypeDef;
 
 typedef struct
 {
@@ -156,6 +161,6 @@ void sd3078_WriteEnable(uint16_t Addr_CTR2, uint16_t Addr_CTR1);
 void sd3078_WriteDisable(uint16_t Addr_CTR1, uint16_t Addr_CTR2);
 void sd3078_RTC_WriteDate(uint16_t Addr, uint8_t *write_buffer);
 void sd3078_RTC_ReadDate(uint16_t Addr, uint8_t *Read_buffer);
-
+void sd3078_CountDown_interrupt(SD3078_CountDownTypeDef *countdowninit, uint8_t *writeBuffer);
 
 #endif

@@ -154,7 +154,7 @@ void sd3078_WriteDisable(uint16_t Addr_CTR1, uint16_t Addr_CTR2)
 /**
   * @brief  Function Write RTC Date
   * @param  Addr: Start Write the Starting Address
-  * @param  data: Data Content Write
+  * @param  write_buffer: Data Content Write
   * @retval HAL status
   */
 void sd3078_RTC_WriteDate(uint16_t Addr, uint8_t *write_buffer)
@@ -171,7 +171,7 @@ void sd3078_RTC_WriteDate(uint16_t Addr, uint8_t *write_buffer)
 /**
   * @brief  Function Read RTC Date
   * @param  Addr: Start Write the Starting Address
-  * @param  data: Data Content Read
+  * @param  Read_buffer: Data Content Read
   * @retval HAL status
   */
 void sd3078_RTC_ReadDate(uint16_t Addr, uint8_t *Read_buffer)
@@ -179,3 +179,22 @@ void sd3078_RTC_ReadDate(uint16_t Addr, uint8_t *Read_buffer)
     sd3078_MultiByteRead(Addr, Read_buffer, TIME_RTC_LEN, SD3078_TIMEOUT);
 }
 
+/**
+  * @brief  Function Read RTC Date
+  * @param  countdowninit:  CountDown init
+  * @param  writeBuffer: Data Content Write
+  * @retval HAL status
+  */
+void sd3078_CountDown_interrupt(SD3078_CountDownTypeDef *countdowninit, uint8_t *writeBuffer)
+{
+    uint8_t FLAG_TEP = 0XF0;
+    writeBuffer[0] = (countdowninit->SD3078_IM << 4) | 0xB4;        // 10H
+    writeBuffer[1] = (countdowninit->ClkSource) << 4;               // 11H
+    writeBuffer[2] = 0X00;                                          // 12H
+    writeBuffer[3] = countdowninit->Counter_val & 0X0000FF;         // 13H
+    writeBuffer[4] = (countdowninit->Counter_val & 0X00FF00) >> 8;  // 14H
+    writeBuffer[5] = (countdowninit->Counter_val & 0XFF0000) >> 16; // 15H
+
+    sd3078_ByteWrite(SD3078_CONTROL_CTR2, &FLAG_TEP, SD3078_TIMEOUT);
+    sd3078_MultiByteWrite(SD3078_CONTROL_CTR2, writeBuffer, 6, SD3078_TIMEOUT);
+}

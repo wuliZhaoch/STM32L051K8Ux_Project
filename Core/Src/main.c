@@ -6,10 +6,12 @@
 SD3078_DeviceIDypeDef DeviceID;
 uint8_t sd3078_DeviceTemp = 0;
 
+uint8_t sd3078_countDown_buffer[6] = {0};
+
 uint8_t sd3078_VBATBUFF[2] = {0};
 uint16_t sd3078_VBAT = 0;
 SD3078_TimeTypeDef sd3078_readtime_buf;
-
+SD3078_CountDownTypeDef sd3078_countDown_init;
 
 uint32_t main_loop = 0;
 
@@ -88,6 +90,11 @@ int main(void)
             sd3078_readtime_buf.sd3078_readtime_buf[1],
             sd3078_readtime_buf.sd3078_readtime_buf[0]);
 
+
+    sd3078_countDown_init.SD3078_IM = 0x01;
+    sd3078_countDown_init.ClkSource = Source_1S;
+    sd3078_countDown_init.Counter_val = 0x0A;
+    sd3078_CountDown_interrupt(&sd3078_countDown_init, sd3078_countDown_buffer);
 
     /* sd3078 Device ID */
     if (sd3078_ReadDeviceID(SD3078_DEVICE_ID1, DeviceID.DeviceID_Buffer) == HAL_OK)
