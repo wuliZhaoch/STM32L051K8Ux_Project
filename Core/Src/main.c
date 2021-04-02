@@ -12,6 +12,7 @@ uint8_t sd3078_VBATBUFF[2] = {0};
 uint16_t sd3078_VBAT = 0;
 SD3078_TimeTypeDef sd3078_readtime_buf;
 SD3078_CountDownTypeDef sd3078_countDown_init;
+ChipIDTypeDef ChipID_VAL;
 
 uint32_t main_loop = 0;
 
@@ -75,6 +76,8 @@ int main(void)
 
     HAL_Delay(5000);
 
+    GET_ChipID(&ChipID_VAL);
+    printf("Chip ID is: %ld-%ld-%ld\r\n", ChipID_VAL.Chip_ID_H, ChipID_VAL.Chip_ID_M, ChipID_VAL.Chip_ID_L);
 
     /* RTC Time set */
     sd3078_RTC_WriteDate(SD3078_RTC_SECOND, Time_RTC_Init);

@@ -22,4 +22,6 @@
 
 #include "sd3078.h"
 
+#include "chip_id.h"
+
 #endif /* INCLUDES_H_ */

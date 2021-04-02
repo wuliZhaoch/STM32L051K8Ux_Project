@@ -10,10 +10,14 @@
 #include "main.h"
 #include "system.h"
 
+#define CHIPID_LEN 3
 
+typedef struct {
+    uint32_t Chip_ID_H;
+    uint32_t Chip_ID_M;
+    uint32_t Chip_ID_L;
+} ChipIDTypeDef;
 
-
-
-
+void GET_ChipID(ChipIDTypeDef *CHIPID);
 
 #endif
