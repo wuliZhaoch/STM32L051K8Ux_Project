@@ -24,4 +24,6 @@
 
 #include "chip_id.h"
 
+#include "chip_eeprom.h"
+
 #endif /* INCLUDES_H_ */
